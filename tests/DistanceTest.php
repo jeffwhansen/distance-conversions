@@ -8,6 +8,11 @@ it('can convert 5.55 from metric to english', function () {
     expect($result)->toEqual("18-2.5");
 });
 
+it('can convert 5.55 from metric to english using the toEnglish helper', function () {
+    $result = Distance::fromMeters("5.55")->toEnglish();
+    expect($result)->toEqual("18-2.5");
+});
+
 it('can convert 5.5 from metric to english', function () {
     $result = Distance::fromMeters("5.5")->to(Format::ENGLISH);
     expect($result)->toEqual("18-0.5");
@@ -45,6 +50,11 @@ it('can convert "18-2" from english to metric', function () {
 
 it('can convert "18-2.5" from english to metric', function () {
     $result = Distance::fromFeet("18-2.5")->to(Format::METRIC);
+    expect($result)->toEqual(5.55);
+});
+
+it('can convert "18-2.5" from english to metric using toMetric helper', function () {
+    $result = Distance::fromFeet("18-2.5")->toMetric();
     expect($result)->toEqual(5.55);
 });
 

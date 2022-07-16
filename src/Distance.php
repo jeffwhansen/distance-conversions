@@ -35,12 +35,12 @@ class Distance
 
         if ($this->unit == "meters") {
             $this->asMetric = $this->distance;
-            $this->asEnglish = self::toEnglish($this->distance);
+            $this->asEnglish = self::convertToEnglish($this->distance);
         }
 
         if ($this->unit == "feet") {
             $this->asEnglish = $this->distance;
-            $this->asMetric = self::toMetric($this->distance);
+            $this->asMetric = self::convertToMetric($this->distance);
         }
     }
 
@@ -85,6 +85,16 @@ class Distance
         return $str;
     }
 
+    public function toMetric()
+    {
+        return $this->to(Format::METRIC);
+    }
+
+    public function toEnglish()
+    {
+        return $this->to(Format::ENGLISH);
+    }
+
     public function meters()
     {
         $metersParts = explode(".", $this->asMetric);
@@ -112,15 +122,23 @@ class Distance
     public function inches()
     {
         $feetParts = explode("-", $this->asEnglish);
-        $inchParts = explode(".", $feetParts[1]);
+        if (isset($feetParts[1])) {
+            $inchParts = explode(".", $feetParts[1]);
+        }
 
-        return $inchParts[0] ?: 0;
+        if (isset($inchParts[0])) {
+            return $inchParts[0];
+        }
+
+        return 0;
     }
 
     public function inchesDecimal()
     {
         $feetParts = explode("-", $this->asEnglish);
-        $inchParts = explode(".", $feetParts[1]);
+        if (isset($feetParts[1])) {
+            $inchParts = explode(".", $feetParts[1]);
+        }
 
         if (isset($inchParts[1])) {
             return $inchParts[1];
@@ -159,38 +177,14 @@ class Distance
         }
 
         if ($this->unit == "meters") {
-            return self::isValidMetric($this->distance);
+            return Validate::metric($this->distance);
         }
         if ($this->unit == "feet") {
-            return self::isValidEnglish($this->distance);
+            return Validate::english($this->distance);
         }
     }
 
-    /*
-     * Allow the following formats
-     * .5
-     * 5
-     * 5.5
-     * 5.55
-     */
-    public static function isValidMetric(float $distance)
-    {
-        return (bool) preg_match("/^[0-9]+?(\.[0-9][0-9]?)?$/", $distance);
-    }
-
-    /*
-     * Allow the following formats
-     * 18
-     * 18-2
-     * 18-0.5
-     * 18-2.75
-     */
-    public static function isValidEnglish(float|string $distance)
-    {
-        return (bool) preg_match("/^[0-9]+?(\-([0-9]|10|11)?(\.(0|5|25|50|75)?)?)?$/", $distance);
-    }
-
-    public function toMetric($value)
+    public function convertToMetric($value)
     {
         if (empty($value)) {
             return '0';
@@ -203,7 +197,7 @@ class Distance
         return round($feet * 0.3048 + floatval($inches) * 0.0254, 2);
     }
 
-    public function toEnglish($value, $cmValue = null)
+    public function convertToEnglish($value, $cmValue = null)
     {
         $cmVal = is_null($cmValue) ? 0 : $cmValue;
 
