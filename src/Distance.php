@@ -46,7 +46,9 @@ class Distance
 
     public function to($format)
     {
-        if ($this->asMetric === 0.0) { return 0; }
+        if ($this->asMetric === 0.0) {
+            return 0;
+        }
         $str = '';
         $chars = str_split($format);
         foreach ($chars as $char) {
@@ -123,6 +125,7 @@ class Distance
         if (isset($inchParts[1])) {
             return $inchParts[1];
         }
+
         return 0;
     }
 
@@ -151,7 +154,6 @@ class Distance
 
     public function isValid()
     {
-
         if (! in_array($this->unit, $this->possibleUnits)) {
             throw new Exception('Invalid unit provided. Must be either "meter" or "feet".');
         }
