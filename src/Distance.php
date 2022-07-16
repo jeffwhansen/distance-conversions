@@ -46,6 +46,7 @@ class Distance
 
     public function to($format)
     {
+        if ($this->asMetric === 0.0) { return 0; }
         $str = '';
         $chars = str_split($format);
         foreach ($chars as $char) {
@@ -92,8 +93,11 @@ class Distance
     public function centimeters()
     {
         $metersParts = explode(".", $this->asMetric);
-
-        return $metersParts[1] ?: 0;
+        if (isset($metersParts[1])) {
+            return $metersParts[1];
+        } else {
+            return 0;
+        }
     }
 
     public function feet()
@@ -116,7 +120,10 @@ class Distance
         $feetParts = explode("-", $this->asEnglish);
         $inchParts = explode(".", $feetParts[1]);
 
-        return $inchParts[1] ?: 0;
+        if (isset($inchParts[1])) {
+            return $inchParts[1];
+        }
+        return 0;
     }
 
     public function inchesFraction()
@@ -144,9 +151,6 @@ class Distance
 
     public function isValid()
     {
-        if (empty($this->distance)) {
-            throw new Exception('A distance must be provided.');
-        }
 
         if (! in_array($this->unit, $this->possibleUnits)) {
             throw new Exception('Invalid unit provided. Must be either "meter" or "feet".');
