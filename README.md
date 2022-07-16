@@ -16,9 +16,20 @@ composer require jeffwhansen/distance-conversions
 ## Usage
 
 ```php
-$skeleton = new Jeffwhansen\DistanceConversions();
-echo $skeleton->echoPhrase('Hello, Jeffwhansen!');
+Distance::fromMeters("5.55")->to(Format::ENGLISH); //18-2.5
+Distance::fromFeet("18-2.5")->to(Format::METRIC); //5.55 
+Distance::fromFeet("18-2.5")->to("M.C"); //5.55
+Distance::fromMeters("5.55")->to("F' I-i\""); //18' 2-1/2"
 ```
+### Format String Constants
+You can format your output using the following placeholders.  Any character you provide  that is in not in the list will be literally printed in the response.
+
+    const M = "Meters"; // 5
+    const C = "Centimeters"; // 55
+    const F = "Feet"; // 18
+    const I = "Inches"; //0-11
+    const p = "Inches partial as decimal"; //.25
+    const i = "Inches partial as fraction"; // 1/4
 
 ## Testing
 
