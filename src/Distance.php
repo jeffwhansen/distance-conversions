@@ -194,7 +194,7 @@ class Distance
         $feet = $splitVal[0];
         $inches = (isset($splitVal[1])) ? $splitVal[1] : 0;
 
-        return round($feet * 0.3048 + floatval($inches) * 0.0254, 2);
+        return round($feet * 0.3048 + floatval($inches) * 0.0254, 3);
     }
 
     public function convertToEnglish($value, $cmValue = null)

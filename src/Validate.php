@@ -13,7 +13,7 @@ class Validate
      */
     public static function metric(float $distance)
     {
-        return (bool) preg_match("/^[0-9]+?(\.[0-9][0-9]?)?$/", $distance);
+        return (bool) preg_match("/^[0-9]+?(\.[0-9][0-9][0-9]?)?$/", $distance);
     }
 
     /*
