@@ -204,8 +204,13 @@ class Distance
         $length = 100 * $value / 2.54 + $cmVal / 2.54;
 
         $feet = floor($length / 12);
-
         $inch = $length - 12 * $feet;
+
+        if ($inch > 11.75) {
+            $feet++;
+            $inch=0;
+        }
+
         $inchFractions = (round(($inch * 4))) / 4;
 
         $result = $feet . '-' . $inchFractions;
