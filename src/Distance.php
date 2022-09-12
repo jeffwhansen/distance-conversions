@@ -208,7 +208,7 @@ class Distance
 
         if ($inch > 11.75) {
             $feet++;
-            $inch=0;
+            $inch = 0;
         }
 
         $inchFractions = (round(($inch * 4))) / 4;
