@@ -2,6 +2,10 @@
 
 All notable changes to `distance-conversions` will be documented in this file.
 
+## 1.1.3 - 2022-09-14
+
+Small fix
+
 ## 1.1.1 - 2022-09-12
 
 Allow up to 3 decimal points for meters to allow more precise to/from from english
