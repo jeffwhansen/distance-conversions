@@ -35,22 +35,27 @@ it('can convert 0-0.0 from english to metric', function () {
 
 it('can convert 18 from english to metric', function () {
     $result = Distance::fromFeet(18)->to(Format::METRIC);
-    expect($result)->toEqual(5.49);
+    expect($result)->toEqual(5.486);
 });
 
 it('can convert "18" from english to metric', function () {
     $result = Distance::fromFeet("18")->to(Format::METRIC);
-    expect($result)->toEqual(5.49);
+    expect($result)->toEqual(5.486);
 });
 
 it('can convert "18-2" from english to metric', function () {
     $result = Distance::fromFeet("18-2")->to(Format::METRIC);
-    expect($result)->toEqual(5.54);
+    expect($result)->toEqual(5.537);
 });
 
 it('can convert "18-2.5" from english to metric', function () {
     $result = Distance::fromFeet("18-2.5")->to(Format::METRIC);
     expect($result)->toEqual(5.55);
+});
+
+it('can convert "18-11.75" from english to metric', function () {
+    $result = Distance::fromFeet("18-11.75")->to(Format::METRIC);
+    expect($result)->toEqual(5.785);
 });
 
 it('can convert "18-2.5" from english to metric using toMetric helper', function () {

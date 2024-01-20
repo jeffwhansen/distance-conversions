@@ -206,7 +206,7 @@ class Distance
         $feet = floor($length / 12);
         $inch = $length - 12 * $feet;
 
-        if ($inch > 11.75) {
+        if ($inch > 11.78) {
             $feet++;
             $inch = 0;
         }
